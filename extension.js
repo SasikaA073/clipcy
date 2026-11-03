@@ -18,6 +18,9 @@ const TEXT_MIMETYPES = ['text/plain;charset=utf-8', 'UTF8_STRING', 'text/plain',
 const PASSWORD_HINT_MIMETYPE = 'x-kde-passwordManagerHint';
 const MAX_IMAGE_BYTES = 20 * 1024 * 1024;
 const PASTE_DELAY_MS = 120;
+// The popup shortcut may be the same chord we synthesize (e.g. Ctrl+Shift+V),
+// so it stays unbound until the synthetic keys have been processed.
+const REBIND_DELAY_MS = 300;
 
 const ClipcyIndicator = GObject.registerClass(
 class ClipcyIndicator extends PanelMenu.Button {
@@ -50,6 +53,7 @@ export default class ClipcyExtension extends Extension {
         this._clipboard = St.Clipboard.get_default();
         this._selfHash = null;
         this._pasteTimeoutId = 0;
+        this._rebindTimeoutId = 0;
         this._popup = new ClipcyPopup(this);
 
         this.settings.connectObject(
@@ -65,10 +69,7 @@ export default class ClipcyExtension extends Extension {
             this);
         this._syncIndicator();
 
-        Main.wm.addKeybinding('popup-shortcut', this.settings,
-            Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
-            Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW,
-            () => this._popup.toggle(this.settings.get_string('popup-position'), this._indicator));
+        this._bindShortcut();
 
         global.display.get_selection().connectObject('owner-changed',
             (_sel, type, source) => this._onOwnerChanged(type, source), this);
@@ -76,11 +77,15 @@ export default class ClipcyExtension extends Extension {
 
     disable() {
         global.display.get_selection().disconnectObject(this);
-        Main.wm.removeKeybinding('popup-shortcut');
+        this._unbindShortcut();
         this.settings.disconnectObject(this);
         if (this._pasteTimeoutId) {
             GLib.source_remove(this._pasteTimeoutId);
             this._pasteTimeoutId = 0;
+        }
+        if (this._rebindTimeoutId) {
+            GLib.source_remove(this._rebindTimeoutId);
+            this._rebindTimeoutId = 0;
         }
         this._popup.destroy();
         this._popup = null;
@@ -91,6 +96,23 @@ export default class ClipcyExtension extends Extension {
         this.history = null;
         this._clipboard = null;
         this.settings = null;
+    }
+
+    _bindShortcut() {
+        if (this._shortcutBound)
+            return;
+        Main.wm.addKeybinding('popup-shortcut', this.settings,
+            Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+            Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW,
+            () => this._popup.toggle(this.settings.get_string('popup-position'), this._indicator));
+        this._shortcutBound = true;
+    }
+
+    _unbindShortcut() {
+        if (!this._shortcutBound)
+            return;
+        Main.wm.removeKeybinding('popup-shortcut');
+        this._shortcutBound = false;
     }
 
     _syncIndicator() {
@@ -233,6 +255,14 @@ export default class ClipcyExtension extends Extension {
             : [Clutter.KEY_Control_L, Clutter.KEY_v];
         const vk = this._virtualKeyboard;
         const time = GLib.get_monotonic_time();
+        this._unbindShortcut();
+        if (this._rebindTimeoutId)
+            GLib.source_remove(this._rebindTimeoutId);
+        this._rebindTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, REBIND_DELAY_MS, () => {
+            this._rebindTimeoutId = 0;
+            this._bindShortcut();
+            return GLib.SOURCE_REMOVE;
+        });
         for (const k of keys)
             vk.notify_keyval(time, k, Clutter.KeyState.PRESSED);
         for (const k of [...keys].reverse())
