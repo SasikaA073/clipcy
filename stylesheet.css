@@ -1,0 +1,103 @@
+.clipcy-popup {
+  width: 460px;
+  padding: 8px;
+  border-radius: 14px;
+  background-color: rgba(36, 36, 40, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  color: #f2f2f2;
+  spacing: 6px;
+}
+
+.clipcy-search {
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+.clipcy-search-icon {
+  icon-size: 14px;
+  padding-right: 6px;
+}
+
+.clipcy-scroll {
+  max-height: 420px;
+}
+
+.clipcy-item {
+  border-radius: 7px;
+  padding: 5px 8px;
+  color: #f2f2f2;
+}
+
+.clipcy-item:selected {
+  background-color: -st-accent-color;
+  color: -st-accent-fg-color;
+}
+
+.clipcy-item > StBoxLayout {
+  spacing: 8px;
+}
+
+.clipcy-title {
+  font-size: 10.5pt;
+}
+
+.clipcy-thumb {
+  border-radius: 4px;
+}
+
+.clipcy-shortcut {
+  font-size: 9pt;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.clipcy-item:selected .clipcy-shortcut {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.clipcy-empty {
+  padding: 16px;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+}
+
+.clipcy-preview {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 4px 2px 4px;
+  spacing: 6px;
+  max-height: 180px;
+}
+
+.clipcy-preview-text {
+  font-family: monospace;
+  font-size: 9.5pt;
+  max-height: 140px;
+}
+
+.clipcy-preview-meta {
+  font-size: 8.5pt;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.clipcy-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 6px;
+  spacing: 4px;
+}
+
+.clipcy-footer-button {
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 9pt;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.clipcy-footer-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.clipcy-hint {
+  font-size: 8pt;
+  color: rgba(255, 255, 255, 0.4);
+  padding-right: 6px;
+}

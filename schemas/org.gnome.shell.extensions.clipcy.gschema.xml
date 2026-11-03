@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <enum id="org.gnome.shell.extensions.clipcy.popup-position">
+    <value nick="cursor" value="0"/>
+    <value nick="center" value="1"/>
+    <value nick="panel" value="2"/>
+  </enum>
+  <enum id="org.gnome.shell.extensions.clipcy.search-mode">
+    <value nick="exact" value="0"/>
+    <value nick="fuzzy" value="1"/>
+    <value nick="regexp" value="2"/>
+    <value nick="mixed" value="3"/>
+  </enum>
+  <enum id="org.gnome.shell.extensions.clipcy.sort-by">
+    <value nick="lastCopied" value="0"/>
+    <value nick="firstCopied" value="1"/>
+    <value nick="copyCount" value="2"/>
+  </enum>
+  <enum id="org.gnome.shell.extensions.clipcy.pin-position">
+    <value nick="top" value="0"/>
+    <value nick="bottom" value="1"/>
+  </enum>
+
+  <schema id="org.gnome.shell.extensions.clipcy" path="/org/gnome/shell/extensions/clipcy/">
+    <key name="popup-shortcut" type="as">
+      <default><![CDATA[['<Shift><Super>c']]]></default>
+      <summary>Shortcut that opens the clipboard history popup</summary>
+    </key>
+    <key name="history-size" type="i">
+      <range min="1" max="2000"/>
+      <default>200</default>
+      <summary>Number of unpinned items to remember</summary>
+    </key>
+    <key name="menu-size" type="i">
+      <range min="5" max="200"/>
+      <default>30</default>
+      <summary>Number of items shown in the popup (search still covers the full history)</summary>
+    </key>
+    <key name="title-length" type="i">
+      <range min="20" max="200"/>
+      <default>60</default>
+      <summary>Maximum characters per row</summary>
+    </key>
+    <key name="popup-position" enum="org.gnome.shell.extensions.clipcy.popup-position">
+      <default>'cursor'</default>
+      <summary>Where the popup opens</summary>
+    </key>
+    <key name="search-mode" enum="org.gnome.shell.extensions.clipcy.search-mode">
+      <default>'exact'</default>
+      <summary>Search mode</summary>
+    </key>
+    <key name="sort-by" enum="org.gnome.shell.extensions.clipcy.sort-by">
+      <default>'lastCopied'</default>
+      <summary>Sort order</summary>
+    </key>
+    <key name="pin-position" enum="org.gnome.shell.extensions.clipcy.pin-position">
+      <default>'top'</default>
+      <summary>Where pinned items appear</summary>
+    </key>
+    <key name="paste-automatically" type="b">
+      <default>true</default>
+      <summary>Paste into the focused window after selecting (Alt+Enter does the opposite)</summary>
+    </key>
+    <key name="show-preview" type="b">
+      <default>true</default>
+      <summary>Show a preview of the selected item</summary>
+    </key>
+    <key name="show-panel-icon" type="b">
+      <default>true</default>
+      <summary>Show icon in the top bar</summary>
+    </key>
+    <key name="capture-images" type="b">
+      <default>true</default>
+      <summary>Save copied images</summary>
+    </key>
+    <key name="ignore-password-managers" type="b">
+      <default>true</default>
+      <summary>Ignore entries marked as secret by password managers (x-kde-passwordManagerHint)</summary>
+    </key>
+    <key name="paused" type="b">
+      <default>false</default>
+      <summary>Stop recording clipboard changes</summary>
+    </key>
+    <key name="ignored-apps" type="as">
+      <default>['org.keepassxc.KeePassXC', 'KeePassXC', '1Password', 'Bitwarden']</default>
+      <summary>Window classes (WM_CLASS) whose copies are ignored</summary>
+    </key>
+    <key name="ignored-patterns" type="as">
+      <default>[]</default>
+      <summary>Regular expressions; matching text is not recorded</summary>
+    </key>
+    <key name="terminal-apps" type="as">
+      <default>['org.gnome.Terminal', 'gnome-terminal-server', 'org.gnome.Ptyxis', 'Ptyxis', 'kitty', 'Alacritty', 'com.mitchellh.ghostty', 'org.wezfurlong.wezterm', 'tilix', 'com.raggesilver.BlackBox', 'xterm', 'org.gnome.Console', 'kgx', 'terminator']</default>
+      <summary>Window classes that need Ctrl+Shift+V to paste</summary>
+    </key>
+  </schema>
+</schemalist>
