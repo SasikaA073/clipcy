@@ -120,3 +120,7 @@ Logs: `journalctl --user -f -o cat /usr/bin/gnome-shell | grep -i clipcy`
   managers) will be recorded unless you add them to the ignored apps or
   patterns.
 - Very large text items are kept in full in memory and in the JSON file.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
