@@ -81,7 +81,7 @@ function patternsGroup(settings) {
 
 function shortcutRow(settings) {
     const row = new Adw.EntryRow({
-        title: 'Open popup shortcut (e.g. <Control><Shift>v)', show_apply_button: true,
+        title: 'Open popup shortcut (e.g. <Shift><Super>v)', show_apply_button: true,
     });
     row.text = settings.get_strv('popup-shortcut')[0] ?? '';
     row.connect('apply', () => {

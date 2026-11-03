@@ -23,7 +23,7 @@
 
   <schema id="org.gnome.shell.extensions.clipcy" path="/org/gnome/shell/extensions/clipcy/">
     <key name="popup-shortcut" type="as">
-      <default><![CDATA[['<Control><Shift>v']]]></default>
+      <default><![CDATA[['<Shift><Super>v']]]></default>
       <summary>Shortcut that opens the clipboard history popup</summary>
     </key>
     <key name="history-size" type="i">

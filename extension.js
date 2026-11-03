@@ -18,7 +18,7 @@ const TEXT_MIMETYPES = ['text/plain;charset=utf-8', 'UTF8_STRING', 'text/plain',
 const PASSWORD_HINT_MIMETYPE = 'x-kde-passwordManagerHint';
 const MAX_IMAGE_BYTES = 20 * 1024 * 1024;
 const PASTE_DELAY_MS = 120;
-// The popup shortcut may be the same chord we synthesize (e.g. Ctrl+Shift+V),
+// The popup shortcut may be set to the chord we synthesize (e.g. Ctrl+Shift+V),
 // so it stays unbound until the synthetic keys have been processed.
 const REBIND_DELAY_MS = 300;
 

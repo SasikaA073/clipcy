@@ -1,7 +1,7 @@
 {
   "uuid": "clipcy@sasikaa073.github.io",
   "name": "Clipcy",
-  "description": "Lightweight keyboard-driven clipboard history manager, inspired by Maccy for macOS.\n\nPress Ctrl+Shift+V, type to search, Enter to paste. Alt+P pins, Alt+Delete removes.",
+  "description": "Lightweight keyboard-driven clipboard history manager, inspired by Maccy for macOS.\n\nPress Super+Shift+V, type to search, Enter to paste. Alt+P pins, Alt+Delete removes.",
   "shell-version": ["50"],
   "settings-schema": "org.gnome.shell.extensions.clipcy",
   "version-name": "0.1.0"

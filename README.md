@@ -26,7 +26,7 @@ After an update, run `./install.sh` again and log out/in.
 
 | Key | Action |
 |---|---|
-| `Ctrl+Shift+V` | Open the popup (configurable) |
+| `Super+Shift+V` (Windows key + Shift + V) | Open the popup (configurable) |
 | type | Filter history |
 | `↑` `↓` / `Ctrl+N` `Ctrl+P` / `Ctrl+J` `Ctrl+K` | Move the selection |
 | `PgUp` `PgDn` | Move 10 rows |
@@ -93,7 +93,7 @@ Logs: `journalctl --user -f -o cat /usr/bin/gnome-shell | grep -i clipcy`
 
 ## Manual test checklist (not yet run in a live shell)
 
-1. Copy text in three apps → `Ctrl+Shift+V` → newest first; the preview shows the app name.
+1. Copy text in three apps → `Super+Shift+V` → newest first; the preview shows the app name.
 2. Copy the same text twice → one entry, "Copied 2×".
 3. Type part of a string → results filter and the match is bold; switch to
    fuzzy/regexp in Preferences and repeat.
@@ -110,13 +110,9 @@ Logs: `journalctl --user -f -o cat /usr/bin/gnome-shell | grep -i clipcy`
 
 ## Known limitations / risks
 
-- The default shortcut `Ctrl+Shift+V` is taken over everywhere, so it no
-  longer pastes directly in terminals, or as "paste as plain text" in browsers
-  and editors. Use the popup instead (`Ctrl+Shift+V`, then `Enter` pastes the
-  latest item). Clipcy unbinds the shortcut for 300 ms while it sends its own
-  paste keys, so terminal auto-paste still works. Pick another shortcut in
-  Preferences if you need the original behaviour.
-
+- If you set the shortcut to `Ctrl+Shift+V`, it stops pasting directly in
+  terminals. Clipcy unbinds its shortcut for 300 ms while it sends its own
+  paste keys, so auto-paste from the popup still works.
 - Only tested against GNOME Shell **50**'s APIs (`shell-version: ["50"]`).
   Older GNOME versions need API changes (`St.BoxLayout.orientation`,
   `Clutter.ClickGesture`, and others).
